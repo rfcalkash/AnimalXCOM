@@ -5,5 +5,7 @@
         <file>images/road-t-junction.svg</file>
         <file>images/road-turn.svg</file>
         <file>images/road-parking.svg</file>
+        <file>images/road-walk.svg</file>
+        <file>images/traffic_light.svg</file>
     </qresource>
 </RCC>

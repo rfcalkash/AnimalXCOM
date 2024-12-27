@@ -47,11 +47,11 @@ public:
         sideElements[direction] = type;
     }
     bool collapsed = false;
-    int variator;
+    quint32 variator;
     void collapse(QRandomGenerator* r)
     {
         collapsed = true;
-        variator = r->bounded(4);
+        variator = r->generate();
     }
     static Block* invalidBlock()
     {

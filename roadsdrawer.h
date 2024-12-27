@@ -39,6 +39,9 @@ class RoadsDrawer : public QQuickPaintedItem {
     QImage straight;
     QImage cross;
     QImage crossT;
+    QImage crossWalk;
+    QImage trafficLight;
+    void _drawCrossWalk(const QRectF& rect, QPainter* p, Qt::Edge edge);
 
 public:
     explicit RoadsDrawer(QQuickItem* parent = nullptr);

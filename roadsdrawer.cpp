@@ -19,6 +19,8 @@ void RoadsDrawer::updateImplicits()
     straight = _loadImageFromSvg("://images/road-straight.svg", imageSize);
     cross = _loadImageFromSvg("://images/road-crossroads.svg", imageSize);
     crossT = _loadImageFromSvg("://images/road-t-junction.svg", imageSize);
+    crossWalk = _loadImageFromSvg(":/images/road-walk.svg", imageSize);
+    trafficLight = _loadImageFromSvg(":/images/traffic_light.svg", imageSize);
     setImplicitSize(fieldWidth() * zoom(), fieldHeight() * zoom());
 }
 
@@ -26,7 +28,7 @@ void RoadsDrawer::_drawBlock(const QSharedPointer<Block>& block, const QRectF& r
 {
     static QMap<TerrainType, QColor> colorMap {
         { TerrainType::Empty, "#90B77D" },
-        { TerrainType::Road, "#9B9B9B" },
+        { TerrainType::Road, "#333333" },
         { TerrainType::Building, "#D49B54" },
         { TerrainType::River, "#5B8FB9" },
         { TerrainType::Forest, "#2D5A27" }
@@ -104,7 +106,12 @@ void RoadsDrawer::_drawBlock(const QSharedPointer<Block>& block, const QRectF& r
                 break;
             }
         } else if (roads.size() == 4) {
-            p->drawImage(rect, block->variator > 1 ? cross.transformed(QTransform().rotate(90)) : cross);
+            p->drawImage(rect, (block->variator & 0xF) > 0 ? cross.transformed(QTransform().rotate(90)) : cross);
+            for (auto edge : TerrainGenerator::allEdges) {
+                if ((block->variator & edge) > 0) {
+                    _drawCrossWalk(rect, p, edge);
+                }
+            }
         } else if (roads.size() == 2) {
             if (roads.contains(Qt::LeftEdge) && roads.contains(Qt::RightEdge)) {
                 p->drawImage(rect, straight);
@@ -122,8 +129,18 @@ void RoadsDrawer::_drawBlock(const QSharedPointer<Block>& block, const QRectF& r
         } else if (roads.size() == 3) {
             if (roads.contains(Qt::LeftEdge) && roads.contains(Qt::RightEdge)) {
                 p->drawImage(rect, roads.contains(Qt::TopEdge) ? crossT : crossT.transformed(QTransform().rotate(180)));
+                for (auto edge : { Qt::LeftEdge, Qt::RightEdge, roads.contains(Qt::TopEdge) ? Qt::TopEdge : Qt::BottomEdge }) {
+                    if ((block->variator & edge) > 0) {
+                        _drawCrossWalk(rect, p, edge);
+                    }
+                }
             } else {
                 p->drawImage(rect, roads.contains(Qt::LeftEdge) ? crossT.transformed(QTransform().rotate(-90)) : crossT.transformed(QTransform().rotate(90)));
+                for (auto edge : { Qt::TopEdge, Qt::BottomEdge, roads.contains(Qt::LeftEdge) ? Qt::LeftEdge : Qt::RightEdge }) {
+                    if ((block->variator & edge) > 0) {
+                        _drawCrossWalk(rect, p, edge);
+                    }
+                }
             }
         }
     }
@@ -148,6 +165,26 @@ QImage RoadsDrawer::_loadImageFromSvg(const QString& path, const QSize& scaleSiz
     QPainter painter(&image);
     renderer.render(&painter);
     return image;
+}
+
+void RoadsDrawer::_drawCrossWalk(const QRectF& rect, QPainter* p, Qt::Edge edge)
+{
+    int angle;
+    switch (edge) {
+    case Qt::TopEdge:
+        angle = 0;
+        break;
+    case Qt::LeftEdge:
+        angle = -90;
+        break;
+    case Qt::RightEdge:
+        angle = 90;
+        break;
+    case Qt::BottomEdge:
+        angle = 180;
+        break;
+    }
+    p->drawImage(rect, angle == 0 ? crossWalk : crossWalk.transformed(QTransform().rotate(angle)));
 }
 
 RoadsDrawer::RoadsDrawer(QQuickItem* parent)
