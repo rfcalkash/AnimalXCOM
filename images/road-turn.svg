@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Тротуар -->
+  <path d="M 0 25 Q 25 25, 25 0 L 75 0 Q 75 75, 0 75 Z" fill="#C0C0C0"/>
+  <!-- Дорога -->
+  <path d="M 0 30 Q 30 30, 30 0 L 70 0 Q 70 70, 0 70 Z" fill="#808080"/>
+  <!-- Бордюр -->
+  <path d="M 0 25 L 0 30 Q 30 30, 30 0 L 25 0 Q 25 25, 0 25" fill="#A0A0A0"/>
+  <path d="M 70 0 L 75 0 Q 75 75, 0 75 L 0 70 Q 70 70, 70 0" fill="#A0A0A0"/>
+  <!-- Разметка -->
+  <path d="M 0 50 Q 50 50, 50 0" stroke="white" stroke-width="3" stroke-dasharray="10,10" fill="none"/>
+</svg>

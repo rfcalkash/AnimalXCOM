@@ -9,6 +9,7 @@
 #include <QPainterPath>
 #include <QQmlEngine>
 #include <QQuickPaintedItem>
+#include <QSvgRenderer>
 #include <QtConcurrent>
 
 class RoadsDrawer : public QQuickPaintedItem {
@@ -19,19 +20,25 @@ class RoadsDrawer : public QQuickPaintedItem {
     AUTO_PROPERTY_ADDITIONALWRITER(int, fieldHeight, _generate, 500)
     AUTO_PROPERTY_ADDITIONALWRITER(qint32, seed, _generate, 1)
     AUTO_PROPERTY(bool, busy, false)
-    AUTO_PROPERTY_WRITER(int, zoom, zoom, 1)
+    AUTO_PROPERTY_WRITER(int, zoom, zoom, 100)
     AUTO_PROPERTY(int, progress, 0)
-    AUTO_PROPERTY_REF(QPointF, topLeft, QPointF(0, 0))
 
     QScopedPointer<TerrainGenerator> m_generator;
     void _generate();
     QTimer reAskTimer;
     void updateImplicits();
-    void _drawBlock(const Block& block, const QRectF& rect, QPainter* p);
-    static bool _isVerticalEdge(Qt::ArrowType type);
+    void _drawBlock(const QSharedPointer<Block>& block, const QRectF& rect, QPainter* p);
+    static bool _isVerticalEdge(Qt::Edge type);
     int m_lastDrawnProgress = 0;
     bool m_moving = false;
-    QPointF m_lastMovingPosition;
+    QPointF m_lastMovePosition = QPointF(0, 0);
+    QPointF m_topLeftPosition = QPointF(0, 0);
+    static QImage _loadImageFromSvg(const QString& path, const QSize& scaleSize);
+    QImage parking;
+    QImage turn;
+    QImage straight;
+    QImage cross;
+    QImage crossT;
 
 public:
     explicit RoadsDrawer(QQuickItem* parent = nullptr);

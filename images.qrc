@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/road-crossroads.svg</file>
+        <file>images/road-straight.svg</file>
+        <file>images/road-t-junction.svg</file>
+        <file>images/road-turn.svg</file>
+        <file>images/road-parking.svg</file>
+    </qresource>
+</RCC>

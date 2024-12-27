@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Тротуар -->
+  <path d="M 0 25 L 100 25 L 100 75 L 0 75 Z M 25 0 L 75 0 L 75 100 L 25 100 Z" fill="#C0C0C0"/>
+  <!-- Дорога -->
+  <path d="M 0 30 L 100 30 L 100 70 L 0 70 Z M 30 0 L 70 0 L 70 100 L 30 100 Z" fill="#808080"/>
+  <!-- Бордюр -->
+  <path d="M 0 25 L 100 25 L 100 30 L 0 30 Z" fill="#A0A0A0"/>
+  <path d="M 0 70 L 100 70 L 100 75 L 0 75 Z" fill="#A0A0A0"/>
+  <path d="M 25 0 L 30 0 L 30 100 L 25 100 Z" fill="#A0A0A0"/>
+  <path d="M 70 0 L 75 0 L 75 100 L 70 100 Z" fill="#A0A0A0"/>
+  <!-- Разметка -->
+  <line x1="0" y1="50" x2="30" y2="50" stroke="white" stroke-width="3" stroke-dasharray="10,10"/>
+  <line x1="70" y1="50" x2="100" y2="50" stroke="white" stroke-width="3" stroke-dasharray="10,10"/>
+  <line x1="50" y1="0" x2="50" y2="30" stroke="white" stroke-width="3" stroke-dasharray="10,10"/>
+  <line x1="50" y1="70" x2="50" y2="100" stroke="white" stroke-width="3" stroke-dasharray="10,10"/>
+  <!-- Пешеходные переходы -->
+  <g stroke="white" stroke-width="3">
+    <!-- Левый переход -->
+    <line x1="5" y1="35" x2="25" y2="35"/>
+    <line x1="5" y1="45" x2="25" y2="45"/>
+    <line x1="5" y1="55" x2="25" y2="55"/>
+    <line x1="5" y1="65" x2="25" y2="65"/>
+    
+    <!-- Правый переход -->
+    <line x1="75" y1="35" x2="95" y2="35"/>
+    <line x1="75" y1="45" x2="95" y2="45"/>
+    <line x1="75" y1="55" x2="95" y2="55"/>
+    <line x1="75" y1="65" x2="95" y2="65"/>
+    
+    <!-- Верхний переход -->
+    <line x1="35" y1="5" x2="35" y2="25"/>
+    <line x1="45" y1="5" x2="45" y2="25"/>
+    <line x1="55" y1="5" x2="55" y2="25"/>
+    <line x1="65" y1="5" x2="65" y2="25"/>
+    
+    <!-- Нижний переход -->
+    <line x1="35" y1="75" x2="35" y2="95"/>
+    <line x1="45" y1="75" x2="45" y2="95"/>
+    <line x1="55" y1="75" x2="55" y2="95"/>
+    <line x1="65" y1="75" x2="65" y2="95"/>
+  </g>
+</svg>
